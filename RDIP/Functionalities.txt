@@ -1,0 +1,20 @@
+Present Functionalities:
+1. Selection of language
+2. Jumbleing of words
+3. When u click the button of a word, it dissappears and the corresponding word
+	appears below as a sentence
+4. Check the correctness, checks the sentence from a pool of correct answers
+	and if ur answer is correct, it highlights in green
+5. Upon a wrong answer, there appears a button that says get correct sentence,
+	which lists all the correct possible answers from the pool.
+6. Reform sentence button resets everything back.
+
+
+More functionality ideas:
+
+1. Under experiment tab: There should be a button to change the given question
+	(i.e, to get a different question)
+
+2. Under quizzes tab: There should be an option to select the correct answer
+	of the question. And it should notify that whether thats the right answer
+	or incorrect.
