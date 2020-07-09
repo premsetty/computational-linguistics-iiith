@@ -24,21 +24,49 @@ var desc = document.getElementById('description');
 var desc2 = document.getElementById('description2');
 var select = document.getElementById('selection');
 var seldesc = document.getElementById('selectiondesc');
+var desc3 = document.getElementById('description3');
+var desc4 = document.getElementById('description4');
+var sentence = document.getElementById('sentence');
+var reform = document.getElementById('reformbtnpara');
 
 function introshow(){
 	heading.innerHTML = "Introduction"
 	desc.innerHTML = "A sentence can become more complex, if more than one verb is present or by joining two sentences or words using conjunctions or by some other methods."
 	desc2.innerHTML = "<br>In this experiment also, you will make more difficult sentences using the given words."
+	desc3.innerHTML = "";
+	select.innerHTML = "";
+	seldesc.innerHTML = "";
+	desc2.style.textAlign = "left";
+	desc4.innerHTML = "";
+	desc4.style.textAlign = "left";
+	sentence.innerHTML = "";
+	reform.innerHTML = "";
 }
 function theoryshow(){
 	heading.innerHTML = "Theory";
 	desc.innerHTML = "<u><b>Clause</b></U><br>A clause typically contains a subject noun phrase and a finite verb. Some languages allow subjects to be omitted. There are two types of subclauses:<ol><li>independent clause</li><li>subordinate clause</li></ol>Independent clause shows the complete meaning in it. For example: Ram eats. A subordinate clause is not a complete sentence. For example: because I am sick. Sentences can also be classified on the basis of clauses.";
-	desc2.innerHTML = "<br>Classification on the basis of clauses are:<br><ol><li>A <b>simple sentence</b> consists of only one independent clause. There are no subordinate clauses.</li><li>A <b>compound sentence</b> consists of more than one independent clauses joined ny conjunctions or punctuations. There are no subordinate clauses.</li><li>A <b>complex sentence</b> consists of atleast one indpendent clause and a single subordinate clause</li><li>A <b>complex-compound sentence</b> consists of more than one independent clauses and atleast one of the independent clauses has one or more than one subordinate clauses</li></ol>"
+	desc2.innerHTML = "<br>Classification on the basis of clauses are:<br><ol><li>A <b>simple sentence</b> consists of only one independent clause. There are no subordinate clauses.</li><li>A <b>compound sentence</b> consists of more than one independent clauses joined ny conjunctions or punctuations. There are no subordinate clauses.</li><li>A <b>complex sentence</b> consists of atleast one indpendent clause and a single subordinate clause</li><li>A <b>complex-compound sentence</b> consists of more than one independent clauses and atleast one of the independent clauses has one or more than one subordinate clauses</li></ol>";
+	desc3.innerHTML = "";
+	select.innerHTML = "";
+	seldesc.innerHTML = "";
+	desc2.style.textAlign = "left";
+	desc4.innerHTML = "";
+	sentence.innerHTML = "";
+	desc4.style.textAlign = "left";
+	reform.innerHTML = "";
 }
 function objectiveshow(){
 	heading.innerHTML = "Objective";
 	desc.innerHTML = "<br><hr><br><br>The objective of this experiment is to know how to form logically correct sentences from the given words.<br>";
 	desc2.innerHTML = "<br><hr>";
+	desc3.innerHTML = "";
+	select.innerHTML = "";
+	seldesc.innerHTML = "";
+	desc2.style.textAlign = "left";
+	desc4.innerHTML = "";
+	desc4.style.textAlign = "left";
+	sentence.innerHTML = "";
+	reform.innerHTML = "";
 }
 
 function insiderandomizer(jumbled){
@@ -53,17 +81,34 @@ function insiderandomizer(jumbled){
 	}
 	return jumble;
 }
+var finalsentence ="";
+function formsentence(id,value){
+	desc4.style.textAlign = "center";
+	desc4.innerHTML = "<br><font color='darkblue'><b>Formed Sentence</b></font><font color='blue'> <i>(after selecting words):</i></font><br>";
+	finalsentence += value + " ";
+	sentence.style.textAlign = 'center';
+	sentence.innerHTML = finalsentence;
+	document.getElementById(id).style.display = "none";
+	reform.innerHTML = "<center><button id='refornbtn'>Re-form the sentence</button></center>"
+}
 function dropdownchange(){
 	var x = document.getElementById('lang').value;
 	if(x == 'select'){
 		seldesc.innerHTML = "";
-		desc.innerHTML = "";
+		desc3.innerHTML = "";
 		desc2.innerHTML = "";
+		desc4.innerHTML = "";
+		desc4.style.textAlign = "left";
+		sentence.innerHTML = "";
+		reform.innerHTML = "";
+
 	}
 	if(x == 'english'){
+		sentence.innerHTML = "";
+		finalsentence = "";
 		seldesc.innerHTML = "<br><br><b>Form a sentence (Declarative or Interrogative or any other type) from the given words</b>";
-		desc.style.color = "blue";
-		desc.innerHTML = "<center><i>(select the buttons in proper order)</i></center>"
+		desc3.style.color = "blue";
+		desc3.innerHTML = "<center><i>(select the buttons in proper order)</i></center>"
 		var r = Math.floor(Math.random()*9);
 		var jumbled = eng[r][0];
 		var j = insiderandomizer(jumbled);
@@ -72,15 +117,17 @@ function dropdownchange(){
 		var bs = "";
 		for(i=0;i<=j.length-1;i++){
 			val = j[i];
-			b = "<button id='btn"+i+"' value='"+val+"'>"+val+"</button> &nbsp;&nbsp;";
+			b = " <button id='btn"+i+"'onclick='formsentence(this.id,this.value)' value='"+val+"'>"+val+"</button> ";
 			bs +=b;
 		}
-		desc2.innerHTML = bs;
+		desc2.innerHTML = bs.trim();
 	}
 	if(x == 'hindi'){
+		sentence.innerHTML = "";
+		finalsentence = "";
 		seldesc.innerHTML = "<br><br><b>Form a sentence (Declarative or Interrogative or any other type) from the given words</b>";
-		desc.style.color = "blue";
-		desc.innerHTML = "<center><i>(select the buttons in proper order)</i></center>"
+		desc3.style.color = "blue";
+		desc3.innerHTML = "<center><i>(select the buttons in proper order)</i></center>"
 		var r = Math.floor(Math.random()*6);
 		var jumbled = hin[r][0];
 		var j = insiderandomizer(jumbled);
@@ -89,26 +136,49 @@ function dropdownchange(){
 		var bs = "";
 		for(i=0;i<=j.length-1;i++){
 			val = j[i];
-			b = "<button id='btn"+i+"' value='"+val+"'>"+val+"</button> &nbsp;&nbsp;";
+			b = "<button id='btn"+i+"'onclick='formsentence(this.id,this.value)' value='"+val+"'>"+val+"</button> &nbsp;&nbsp;";
 			bs +=b;
 		}
-		desc2.innerHTML = bs;
+		desc2.innerHTML = bs.trim();
 	}
 }
 function experimentshow(){
 	heading.innerHTML = "Experiment";
 	select.innerHTML = "<select id='lang' onchange = 'dropdownchange()'><option value='select'>---Select Language---</option><option value='english'>English</option><option value='hindi'>Hindi</option></select>";
+	seldesc.innerHTML = "";
+	desc3.innerHTML = "";
 	desc.innerHTML = "";
 	desc2.innerHTML = "";
+	desc4.innerHTML = "";
+	desc4.style.textAlign = "left";
+	sentence.innerHTML = "";
+	reform.innerHTML = "";
 }
 
 function quizzesshow(){
 	heading.innerHTML = "Quizzes";
 	desc.innerHTML = "Which of these is a valid sentence?<ol><li>Ram came after lunch.</li><li>Ram came after having lunch.</li><li>Sleeping I saw a tiger.</li><li>I saw a sleeping tiger.</li><li>No Parking is allowed.</li></ol>";
 	desc2.innerHTML = "<br><ol><li>खाते खाते राम सो गया</li><li>राम खाते खाते सो गया</li><li>राम खाता खाते सो गया</li><li>राम खाकर सो गया</li><li>राम और श्याम ने भी खाना खाया</li><li>राम ने और श्याम भी खाना खाया</li></ol>"
+	desc3.innerHTML = "";
+	select.innerHTML = "";
+	seldesc.innerHTML = "";
+	desc2.style.textAlign = "left";
+	desc4.innerHTML = "";
+	desc4.style.textAlign = "left";
+	sentence.innerHTML = "";
+	reform.innerHTML = "";
 }
 function procedureshow(){
 	heading.innerHTML = "Procedure";
 	desc.innerHTML = "<b><u>STEP 1:</u></b> Select a language which you know better<br><b><u>STEP 2:</u></b> Select the buttons which has words written on it, in a proper order<br><b><u>OUTPUT:</u></b> Group of words in a selected order will be shown<br>";
 	desc2.innerHTML = "<b><u>NOTE:</u></b><ol><li>If a wrong sentence is formed, <button>Re-form the sentence</button> is available for re-setting.</li><li>You can check whether the formed sentence is a valid or not by clicking <button>Check the correctness of this sentence</button> </li><li>For a wrong sentence, you can get the correct sentence by clicking <button>Get correct sentence</button> </li></ol>"
+	desc3.innerHTML = "";
+	desc3.innerHTML = "";
+	select.innerHTML = "";
+	seldesc.innerHTML = "";
+	desc2.style.textAlign = "left";
+	desc4.innerHTML = "";
+	sentence.innerHTML = "";
+	desc4.style.textAlign = "left";
+	reform.innerHTML = "";
 }

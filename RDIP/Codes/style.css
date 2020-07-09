@@ -108,7 +108,7 @@ body{
 .innermiddle .content #subhead{
 	font-size: 25px;
 }
-.innermiddle .content #description,#description2{
+.innermiddle .content #description,#description2#description3,#description4{
 	font-size: 16px;
 	color: #4d4d4d;
 }
