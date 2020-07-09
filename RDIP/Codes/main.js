@@ -28,6 +28,7 @@ var desc3 = document.getElementById('description3');
 var desc4 = document.getElementById('description4');
 var sentence = document.getElementById('sentence');
 var reform = document.getElementById('reformbtnpara');
+var j;
 
 function introshow(){
 	heading.innerHTML = "Introduction"
@@ -81,6 +82,17 @@ function insiderandomizer(jumbled){
 	}
 	return jumble;
 }
+
+function reformsentence(){
+	for(i=0;i<=j.length-1;i++){
+		document.getElementById('btn'+i).style.display = "";
+	}
+	finalsentence = "";
+	sentence.innerHTML = finalsentence;
+	reform.innerHTML = "";
+	desc4.innerHTML = "";
+}
+
 var finalsentence ="";
 function formsentence(id,value){
 	desc4.style.textAlign = "center";
@@ -89,7 +101,7 @@ function formsentence(id,value){
 	sentence.style.textAlign = 'center';
 	sentence.innerHTML = finalsentence;
 	document.getElementById(id).style.display = "none";
-	reform.innerHTML = "<center><button id='refornbtn'>Re-form the sentence</button></center>"
+	reform.innerHTML = "<center><button id='refornbtn' onclick='reformsentence()'>Re-form the sentence</button></center>"
 }
 function dropdownchange(){
 	var x = document.getElementById('lang').value;
@@ -111,13 +123,13 @@ function dropdownchange(){
 		desc3.innerHTML = "<center><i>(select the buttons in proper order)</i></center>"
 		var r = Math.floor(Math.random()*9);
 		var jumbled = eng[r][0];
-		var j = insiderandomizer(jumbled);
+		j = insiderandomizer(jumbled);
 		desc2.style.textAlign = "center";
 		var b ="";
 		var bs = "";
 		for(i=0;i<=j.length-1;i++){
 			val = j[i];
-			b = " <button id='btn"+i+"'onclick='formsentence(this.id,this.value)' value='"+val+"'>"+val+"</button> ";
+			b = "  <button id='btn"+i+"'onclick='formsentence(this.id,this.value)' value='"+val+"'>"+val+"</button>  ";
 			bs +=b;
 		}
 		desc2.innerHTML = bs.trim();
@@ -130,13 +142,13 @@ function dropdownchange(){
 		desc3.innerHTML = "<center><i>(select the buttons in proper order)</i></center>"
 		var r = Math.floor(Math.random()*6);
 		var jumbled = hin[r][0];
-		var j = insiderandomizer(jumbled);
+		j = insiderandomizer(jumbled);
 		desc2.style.textAlign = "center";
 		var b ="";
 		var bs = "";
 		for(i=0;i<=j.length-1;i++){
 			val = j[i];
-			b = "<button id='btn"+i+"'onclick='formsentence(this.id,this.value)' value='"+val+"'>"+val+"</button> &nbsp;&nbsp;";
+			b = "  <button id='btn"+i+"'onclick='formsentence(this.id,this.value)' value='"+val+"'>"+val+"</button>  ";
 			bs +=b;
 		}
 		desc2.innerHTML = bs.trim();
