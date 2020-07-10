@@ -102,8 +102,8 @@ function insiderandomizer(jumbled){
 	return jumble;
 }
 function getcorrecttoggle(){
-	if(correctanswers.style.display="none"){
-		correctanswers.style.display=""
+	if(correctanswers.style.display=="none"){
+		correctanswers.style.display="";
 		res.innerHTML = "<center><font color = 'red'>Wrong Answer!!!</font><br><button id='showansbtn' onclick='hidecorrect()'>Hide correct sentence</button></center>";
 	}
 
