@@ -30,10 +30,12 @@ var sentence = document.getElementById('sentence');
 var reform = document.getElementById('reformbtnpara');
 var correctness = document.getElementById('correctnesspara');
 var res = document.getElementById('result');
+var correctanswers = document.getElementById('correctansp');
 var j,btncount,r;
 var finalsentence ="";
 var clickcount = 0;
 var x;
+var answers="";
 
 function introshow(){
 	heading.innerHTML = "Introduction"
@@ -49,6 +51,8 @@ function introshow(){
 	reform.innerHTML = "";
 	correctness.innerHTML = "";
 	res.innerHTML = "";
+	answers="";
+	correctanswers.innerHTML = "";
 }
 function theoryshow(){
 	heading.innerHTML = "Theory";
@@ -64,6 +68,8 @@ function theoryshow(){
 	reform.innerHTML = "";
 	correctness.innerHTML = "";
 	res.innerHTML = "";
+	answers="";
+	correctanswers.innerHTML = "";
 }
 function objectiveshow(){
 	heading.innerHTML = "Objective";
@@ -79,6 +85,8 @@ function objectiveshow(){
 	reform.innerHTML = "";
 	correctness.innerHTML = "";
 	res.innerHTML = "";
+	answers="";
+	correctanswers.innerHTML = "";
 }
 
 function insiderandomizer(jumbled){
@@ -93,7 +101,38 @@ function insiderandomizer(jumbled){
 	}
 	return jumble;
 }
+function getcorrecttoggle(){
+	if(correctanswers.style.display="none"){
+		correctanswers.style.display=""
+		res.innerHTML = "<center><font color = 'red'>Wrong Answer!!!</font><br><button id='showansbtn' onclick='hidecorrect()'>Hide correct sentence</button></center>";
+	}
 
+}
+function hidecorrect(){
+	res.innerHTML = "<center><font color = 'red'>Wrong Answer!!!</font><br><button id='showansbtn' onclick='getcorrecttoggle()'>Get answers</button></center>";
+	correctanswers.style.display="none";
+}
+function getcorrect(){
+	answers="";
+	correctanswers.innerHTML = "";
+	var totalanswers = 0;
+	if (x=='english'){
+		totalanswers = eng[r].length-1;
+		res.innerHTML = "<center><font color = 'red'>Wrong Answer!!!</font><br><button id='showansbtn' onclick='hidecorrect()'>Hide correct sentence</button></center>";
+		for(i=0;i<=totalanswers;i++){
+			answers += "<center>"+eng[r][i]+"<br></center>"
+		}
+		correctanswers.innerHTML = answers;
+	}
+	else if(x=='hindi'){
+		totalanswers = hin[r].length-1;
+		res.innerHTML = "<center><font color = 'red'>Wrong Answer!!!</font><br><button id='showansbtn' onclick='hidecorrect()'>Hide correct sentence</button></center>";
+		for(i=0;i<=totalanswers;i++){
+			answers += "<center>"+hin[r][i]+"<br></center>"
+		}
+		correctanswers.innerHTML = answers;
+	}
+}
 function correctioncheck(){
 	var fs = finalsentence.trim();
 	var result;
@@ -101,11 +140,11 @@ function correctioncheck(){
 		result = eng[r].includes(fs);
 	else if(x == 'hindi')
 		result = hin[r].includes(fs);
-	
+
 	if(result==true)
 		res.innerHTML = "<center><font color = 'green'>Right Answer!!!</font></center>";
 	else
-		res.innerHTML = "<center><font color = 'red'>Wrong Answer!!!</font><br><button id='showansbtn'>Get correct sentence</button></center>";
+		res.innerHTML = "<center><font color = 'red'>Wrong Answer!!!</font><br><button id='showansbtn' onclick='getcorrect()'>Get correct sentence</button></center>";
 
 }
 function reformsentence(){
@@ -137,6 +176,8 @@ function formsentence(id,value){
 function dropdownchange(){
 	x = document.getElementById('lang').value;
 	if(x == 'select'){
+		answers="";
+		correctanswers.innerHTML = "";
 		clickcount = 0;
 		btncount = 0;
 		seldesc.innerHTML = "";
@@ -151,6 +192,8 @@ function dropdownchange(){
 
 	}
 	if(x == 'english'){
+		answers="";
+		correctanswers.innerHTML = "";
 		reform.innerHTML = "";
 		sentence.innerHTML = "";
 		correctness.innerHTML = "";
@@ -177,6 +220,8 @@ function dropdownchange(){
 		desc2.innerHTML = bs.trim();
 	}
 	if(x == 'hindi'){
+		answers="";
+		correctanswers.innerHTML = "";
 		reform.innerHTML = "";
 		sentence.innerHTML = "";
 		correctness.innerHTML = "";
@@ -216,6 +261,8 @@ function experimentshow(){
 	reform.innerHTML = "";
 	correctness.innerHTML = "";
 	res.innerHTML = "";
+	answers="";
+	correctanswers.innerHTML = "";
 }
 
 function quizzesshow(){
@@ -232,6 +279,8 @@ function quizzesshow(){
 	reform.innerHTML = "";
 	correctness.innerHTML = "";
 	res.innerHTML = "";
+	answers="";
+	correctanswers.innerHTML = "";
 }
 function procedureshow(){
 	heading.innerHTML = "Procedure";
@@ -248,4 +297,6 @@ function procedureshow(){
 	reform.innerHTML = "";
 	correctness.innerHTML = "";
 	res.innerHTML = "";
+	answers="";
+	correctanswers.innerHTML = "";
 }
