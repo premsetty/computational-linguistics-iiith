@@ -114,7 +114,6 @@ function hidecorrect(){
 }
 function getcorrect(){
 	answers="";
-	correctanswers.innerHTML = "";
 	var totalanswers = 0;
 	if (x=='english'){
 		totalanswers = eng[r].length-1;
@@ -158,6 +157,8 @@ function reformsentence(){
 	correctness.innerHTML = "";
 	clickcount = 0;
 	res.innerHTML = "";
+	answers="";
+	correctanswers.innerHTML = "";
 }
 
 function formsentence(id,value){
