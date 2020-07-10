@@ -105,7 +105,7 @@ function correctioncheck(){
 	if(result==true)
 		res.innerHTML = "<center><font color = 'green'>Right Answer!!!</font></center>";
 	else
-		res.innerHTML = "<center><font color = 'red'>Wrong Answer!!!</font></center>";
+		res.innerHTML = "<center><font color = 'red'>Wrong Answer!!!</font><br><button id='showansbtn'>Get correct sentence</button></center>";
 
 }
 function reformsentence(){
