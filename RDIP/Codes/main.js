@@ -135,6 +135,8 @@ function getcorrect(){
 function correctioncheck(){
 	var fs = finalsentence.trim();
 	var result;
+	answers="";
+	correctanswers.innerHTML = "";
 	if(x=='english')
 		result = eng[r].includes(fs);
 	else if(x == 'hindi')
