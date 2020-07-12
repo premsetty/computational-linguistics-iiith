@@ -110,7 +110,10 @@ function getcorrecttoggle(){
 }
 function hidecorrect(){
 	res.innerHTML = "<center><font color = 'red'>Wrong Answer!!!</font><br><button id='showansbtn' onclick='getcorrecttoggle()'>Get answers</button></center>";
-	correctanswers.style.display="none";
+	if(correctanswers.style.display !="none")
+		correctanswers.style.display="none";
+	else
+		correctanswers.style.display="";
 }
 function getcorrect(){
 	answers="";
@@ -177,6 +180,7 @@ function formsentence(id,value){
 	}
 }
 function dropdownchange(){
+	x = "";
 	x = document.getElementById('lang').value;
 	if(x == 'select'){
 		answers="";
