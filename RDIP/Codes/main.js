@@ -102,28 +102,25 @@ function insiderandomizer(jumbled){
 	return jumble;
 }
 function getcorrecttoggle(){
-	if(correctanswers.style.display=="none"){
-		correctanswers.style.display="";
-		res.innerHTML = "<center><font color = 'red'>Wrong Answer!!!</font><br><button id='showansbtn' onclick='hidecorrect()'>Hide correct sentence</button></center>";
-	}
+	correctanswers.style.display="";
+	res.innerHTML = "<center><font color = 'red'>Wrong Answer!!!</font><br><button id='showansbtn' onclick='hidecorrect()'>Hide correct sentence</button></center>";
 
 }
 function hidecorrect(){
 	res.innerHTML = "<center><font color = 'red'>Wrong Answer!!!</font><br><button id='showansbtn' onclick='getcorrecttoggle()'>Get answers</button></center>";
-	if(correctanswers.style.display !="none")
-		correctanswers.style.display="none";
-	else
-		correctanswers.style.display="";
+	correctanswers.style.display="none";
 }
 function getcorrect(){
-	answers="";
+	answers = ""
 	var totalanswers = 0;
+	correctanswers.innerHTML = "";
 	if (x=='english'){
 		totalanswers = eng[r].length-1;
 		res.innerHTML = "<center><font color = 'red'>Wrong Answer!!!</font><br><button id='showansbtn' onclick='hidecorrect()'>Hide correct sentence</button></center>";
 		for(i=0;i<=totalanswers;i++){
 			answers += "<center>"+eng[r][i]+"<br></center>"
 		}
+		correctanswers.style.display="";
 		correctanswers.innerHTML = answers;
 	}
 	else if(x=='hindi'){
@@ -132,14 +129,15 @@ function getcorrect(){
 		for(i=0;i<=totalanswers;i++){
 			answers += "<center>"+hin[r][i]+"<br></center>"
 		}
+		correctanswers.style.display="";
 		correctanswers.innerHTML = answers;
 	}
 }
 function correctioncheck(){
 	var fs = finalsentence.trim();
 	var result;
-	answers="";
 	correctanswers.innerHTML = "";
+	//answers="";
 	if(x=='english')
 		result = eng[r].includes(fs);
 	else if(x == 'hindi')
