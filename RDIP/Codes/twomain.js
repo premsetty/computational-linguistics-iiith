@@ -114,6 +114,7 @@ function objectiveshow(){
 function experimentshow(){
 	subheading.innerHTML = "Experiment";
 	document.getElementById('image1').style.display = "none";
+	description.innerHTML = "<center><select id='corpus'><option value='select'>---Select a corpus---</option><option value='corpus1'>Corpus 1</option><option value='corpus2'>Corpus 2</option><option value='corpus3'>Corpus 3</option></select></center>";
 }
 
 function quizzesshow(){
