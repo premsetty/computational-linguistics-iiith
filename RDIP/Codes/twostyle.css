@@ -129,3 +129,15 @@ body{
 .innermiddle .content #corpus{
 	font-size: 16px;
 }
+.innermiddle .content #corpuscontent{
+	text-align: center;
+}
+
+.innermiddle .content table,tr,td{
+	border-collapse: collapse;
+	border: 1px solid darkgray;
+	padding: 8px 10px;
+}
+.innermiddle .content #submit{
+	font-size: 16px;
+}
