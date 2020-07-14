@@ -141,3 +141,6 @@ body{
 .innermiddle .content #submit{
 	font-size: 16px;
 }
+.innermiddle .content #answer{
+ 	font-family: "Lucida Sans Unicode";
+}
