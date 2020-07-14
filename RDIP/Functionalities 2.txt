@@ -1,0 +1,5 @@
+Observed Functionalitiees:
+1. Selection of corpus
+2. Generation of corpus
+3. Input of tokens and types
+4. On submit, it verifies the answer
