@@ -11,9 +11,9 @@ var corpus = ['A mouse was having a very bad time. She could find no food at all
 
 //var Snowball = require(['Snowball']);
 var stemmer = new Snowball('English');
-stemmer.setCurrent('abbreviations');
-stemmer.stem();
-console.log(stemmer.getCurrent());
+//stemmer.setCurrent('abbreviations');
+//stemmer.stem();
+//console.log(stemmer.getCurrent());
 
 
 //-------------------Snowball-----------------------//
