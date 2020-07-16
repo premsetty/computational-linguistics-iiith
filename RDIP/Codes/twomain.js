@@ -19,6 +19,7 @@ var description = document.getElementById('description');
 var corpuscontent = document.getElementById('corpuscontent');
 var answer = document.getElementById('answer');
 var submit = document.getElementById('submit');
+var nanswer = document.getElementById('newtypeanswer');
 var x,wordcount,uniquewordcount,newtypecount;
 
 
@@ -28,6 +29,7 @@ function clearfields(){
 	corpuscontent.innerHTML = "";
 	answer.innerHTML = "";
 	submit.innerHTML = "";
+	nanswer.innerHTML = "";
 }
 
 function introshow(){
@@ -51,10 +53,12 @@ function objectiveshow(){
 
 function comparenewtype(l){
 	if(l == newtypecount){
-		alert('Correct answer')
+		document.getElementById('newtypeinput').style.backgroundColor = "Green";
+		nanswer.innerHTML = "<center><font color='Green' size='5px'>Right Answer</center>"
 	}
 	else{
-		alert('Wrong answer')
+		document.getElementById('newtypeinput').style.backgroundColor = "Red";
+		nanswer.innerHTML = "<center><font color='Red' size='5px'>Wrong Answer</center>"
 	}
 }
 
@@ -129,6 +133,7 @@ function dropdownchange(){
 		var uniquewords = new Set(s2);
 		uniquewordcount = uniquewords.size;  //*******************//
 		answer.innerHTML = "";
+		nanswer.innerHTML = "";
 
 	}
 	if(x == 'corpus2'){
@@ -143,6 +148,7 @@ function dropdownchange(){
 		var uniquewords = new Set(s2);
 		uniquewordcount = uniquewords.size;  //*******************//
 		answer.innerHTML = "";
+		nanswer.innerHTML = "";
 	}
 	if(x == 'corpus3'){
 		corpuscontent.innerHTML = corpus[2] + '<br><br><center>Enter the number of tokens and types for the above corpus:<table cellspacing = "-2" style="text-align:center;"><tr><td>#tokens: </td><td><input type="text" id="tokeninput" size="5"></td></tr><tr><td>#types: </td><td><input type="text" id="typeinput" size="5"></td></tr></table><br></center>';
@@ -156,6 +162,7 @@ function dropdownchange(){
 		var uniquewords = new Set(s2);
 		uniquewordcount = uniquewords.size;  //*******************//
 		answer.innerHTML = "";		
+		nanswer.innerHTML = "";
 	}
 }
 

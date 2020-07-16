@@ -76,7 +76,8 @@ body{
 .innermiddle{
 	margin: 0px 25px;
 	background-color: white;
-	padding-bottom: 550px;
+	min-height: 400px;
+	padding-bottom: 20px;
 }
 .innermiddle #innerul{
 	padding-left: 10px;
