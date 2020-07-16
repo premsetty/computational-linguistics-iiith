@@ -19,7 +19,7 @@ var description = document.getElementById('description');
 var corpuscontent = document.getElementById('corpuscontent');
 var answer = document.getElementById('answer');
 var submit = document.getElementById('submit');
-var x,wordcount,uniquewordcount;
+var x,wordcount,uniquewordcount,newtypecount;
 
 
 function clearfields(){
@@ -49,7 +49,17 @@ function objectiveshow(){
 	description.innerHTML = "<br><hr><br>The objective of this experiment is to impart basic knowledge about the distinction between types and tokens.<br><br><hr>"
 }
 
+function comparenewtype(l){
+	if(l == newtypecount){
+		alert('Correct answer')
+	}
+	else{
+		alert('Wrong answer')
+	}
+}
+
 function stemming(){
+	newtypecount = document.getElementById('newtypeinput').value;
 	var stemstring ="";
 	if(x=='corpus1')
 		stemstring = corpus[0];
@@ -69,8 +79,7 @@ function stemming(){
 	}
 	str = new Set(str);
 	str = Array.from(str);
-	console.log(str);
-	console.log(str.length);
+	comparenewtype(str.length);
 }
 
 function continuebtn(){
