@@ -69,7 +69,8 @@ function stemming(){
 	}
 	str = new Set(str);
 	str = Array.from(str);
-	console.log(str)
+	console.log(str);
+	console.log(str.length);
 }
 
 function continuebtn(){
