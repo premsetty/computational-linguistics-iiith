@@ -39,6 +39,68 @@ function objectiveshow(){
 	document.getElementById('image1').style.display = "none";
 	description.innerHTML = "<br><hr><br>The objective of this experiment is to test the knowledge of basic part of speech of words as they appear in a sentence.<br><br><hr>"
 }
+function createtable(corpusstring){
+	contenttable.innerHTML = "";
+	var rows = "";
+	var corpusS1 = "";
+	corpusS1 = corpusstring.split(" ");
+	if(x == 'english')
+	{	
+		rows = "";
+		for(i = 0 ; i<corpusS1.length ; i++){
+		rows += "<tr><td>"+corpusS1[i]+"</td><td><select><option value = 'Noun'>Noun</option><option value = 'Pronoun'>Pronoun</option><option value = 'Verb'>Verb</option><option value = 'Adjective'>Adjective</option><option value = 'Adverb'>Adverb</option><option value = 'Determiner'>Determiner</option><option value = 'Preposition'>Preposition</option><option value = 'Conjunction'>Conjunction</option><option value = 'Interjection'>Interjection</option></select></td><td></td><td></td></tr>";
+		}
+	}
+	else if(x == 'hindi')
+	{	
+		rows = "";
+		for(i = 0 ; i<corpusS1.length ; i++){
+		rows += "<tr><td>"+corpusS1[i]+"</td><td><select><option value = 'Noun'>Noun</option><option value = 'Pronoun'>Pronoun</option><option value = 'Verb'>Verb</option><option value = 'Adjective'>Adjective</option><option value = 'Adverb'>Adverb</option><option value = 'Postposition'>Postposition</option><option value = 'Conjunction'>Conjunction</option><option value = 'Interjection'>Interjection</option></select></td><td></td><td></td></tr>";
+		}
+	}
+	contenttable.innerHTML = "<center><table><tr><th>LEXICON</th><th>POS</th><th></th><th></th></tr><tr></td></tr>" + rows + "</table></center>";	
+}
+
+function showcontent(id){
+	contenttable.innerHTML = "<center><br><i><font color='Blue'>Select the POS tag for corresponding words</font></i><br></center>"
+	var sentence = "";
+	if(id == "eng"){
+		sentence = document.getElementById(id).value;
+		if (sentence == "english1"){
+			createtable(corpus[0][0]);
+		}
+		if (sentence == "english2"){
+			createtable(corpus[0][1]);
+		}
+		if (sentence == "english3"){
+			createtable(corpus[0][2]);
+		}
+		if (sentence == "english4"){
+			createtable(corpus[0][3]);
+		}
+		if (sentence == "english5"){
+			createtable(corpus[0][4]);
+		}
+	}
+	if(id == "hin"){
+		sentence = document.getElementById(id).value;
+		if (sentence == "hindi1"){
+			createtable(corpus[1][0]);
+		}
+		if (sentence == "hindi2"){
+			createtable(corpus[1][1]);
+		}
+		if (sentence == "hind3"){
+			createtable(corpus[1][2]);
+		}
+		if (sentence == "hindi4"){
+			createtable(corpus[1][3]);
+		}
+		if (sentence == "hindi5"){
+			createtable(corpus[1][4]);
+		}
+	}
+}
 
 function dropdownchange(){
 	x = "";
@@ -47,10 +109,12 @@ function dropdownchange(){
 		alert('Select language');
 	}
 	if(x == 'english'){
-		langcontent.innerHTML = "<center><select id='eng'><option value='engselect'>---Select a sentence---</option><option value='english1'>"+corpus[0][0]+"</option><option value='english2'>"+corpus[0][1]+"</option><option value='english3'>"+corpus[0][2]+"</option><option value='english4'>"+corpus[0][3]+"</option><option value='english5'>"+corpus[0][4]+"</option></select></center>";
+		contenttable.innerHTML = "";
+		langcontent.innerHTML = "<center><select id='eng' onchange = 'showcontent(this.id)'><option value='engselect'>---Select a sentence---</option><option value='english1'>"+corpus[0][0]+"</option><option value='english2'>"+corpus[0][1]+"</option><option value='english3'>"+corpus[0][2]+"</option><option value='english4'>"+corpus[0][3]+"</option><option value='english5'>"+corpus[0][4]+"</option></select></center>";
 	}
 	if(x == 'hindi'){
-		langcontent.innerHTML = "<center><select id='hin'><option value='hinselect'>---Select a sentence---</option><option value='hindi1'>"+corpus[1][0]+"</option><option value='hindi2'>"+corpus[1][1]+"</option><option value='hindi3'>"+corpus[1][2]+"</option><option value='hindi4'>"+corpus[1][3]+"</option><option value='hindi5'>"+corpus[1][4]+"</option></select></center>";
+		contenttable.innerHTML = "";
+		langcontent.innerHTML = "<center><select id='hin' onchange = 'showcontent(this.id)'><option value='hinselect'>---Select a sentence---</option><option value='hindi1'>"+corpus[1][0]+"</option><option value='hindi2'>"+corpus[1][1]+"</option><option value='hindi3'>"+corpus[1][2]+"</option><option value='hindi4'>"+corpus[1][3]+"</option><option value='hindi5'>"+corpus[1][4]+"</option></select></center>";
 	}
 }
 
