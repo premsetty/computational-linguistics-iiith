@@ -212849,10 +212849,10 @@ module.exports = {
     "Myerson": [
         "NNP"
     ], 
-    "baked": [
-        "JJ", 
+    "baked": [ 
         "VBD", 
-        "VBN"
+        "VBN",
+        "JJ"
     ], 
     "fess": [
         "NN"
@@ -298171,17 +298171,11 @@ var corpus = [["The child liked the chocolate.","She was stopped by the bravest 
 //-----------------POS-------------------//
 
 var pos = require('pos');
-var words = new pos.Lexer().lex('This is some sample text. This text can contain multiple sentences.'); //You have to enter the sentences here
-var tagger = new pos.Tagger();
-var taggedWords = tagger.tag(words);
-var sen = "";
-for (i in taggedWords) {
-    var taggedWord = taggedWords[i];
-    var word = taggedWord[0];
-    var tag = taggedWord[1];
-    console.log(word + " /" + tag);
-    sen+= word+"/"+tag+"___";
-}
+var words;
+var tagger;
+var taggedWords;
+var strarray = [];
+var sentence;
 
 //-----------------POS-------------------//
 var subheading = document.getElementById('subheading');
@@ -298218,10 +298212,298 @@ window.objectiveshow = function objectiveshow(){
 	document.getElementById('image1').style.display = "none";
 	description.innerHTML = "<br><hr><br>The objective of this experiment is to test the knowledge of basic part of speech of words as they appear in a sentence.<br><br><hr>"
 }
+
+window.verifyans = function verifyans(selectedoption,tag){
+    if(selectedoption == "Noun"){
+        if(tag == "NN" || tag == "NNP" || tag == "NNPS" || tag == "NNS" ){
+            document.getElementById('tick'+i).innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
+        }
+        else{
+            document.getElementById('tick'+i).innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
+        }
+    }
+    else if(selectedoption == "Pronoun"){
+        if(tag == "PRP$" || tag == "PRP" || tag == "WP"){
+            document.getElementById('tick'+i).innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
+        }
+        else{
+            document.getElementById('tick'+i).innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
+        }
+    }
+    else if(selectedoption == "Verb"){        
+        if(tag == "VB" || tag == "VBD" || tag == "VBG" || tag == "VBN" || tag == "VBP" || tag == "VBZ"){
+            document.getElementById('tick'+i).innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
+        }
+        else{
+            document.getElementById('tick'+i).innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
+        }
+    }
+    else if(selectedoption == "Adjective"){
+        if(tag == "JJ" || tag == "JJS" || tag == "JJR"){
+            document.getElementById('tick'+i).innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
+        }
+        else{
+            document.getElementById('tick'+i).innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
+        }
+    }
+    else if(selectedoption == "Adverb"){
+        if(tag == "RB" || tag == "RBR" || tag == "RBS" || tag == "WRB"){
+            document.getElementById('tick'+i).innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
+        }
+        else{
+            document.getElementById('tick'+i).innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
+        }
+    }
+    else if(selectedoption == "Determiner"){
+        if(tag == "DT" || tag == "PDT" || tag == "WDT"){
+            document.getElementById('tick'+i).innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
+        }
+        else{
+            document.getElementById('tick'+i).innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
+        }
+    }
+    else if(selectedoption == "Preposition"){
+        if(tag == "IN"){
+            document.getElementById('tick'+i).innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
+        }
+        else{
+            document.getElementById('tick'+i).innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
+        }
+    }
+    else if(selectedoption == "Conjunction"){
+        if(tag == "CC"){
+            document.getElementById('tick'+i).innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
+        }
+        else{
+            document.getElementById('tick'+i).innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
+        }
+    }
+    else if(selectedoption == "Interjection"){
+        if(tag == "UH"){
+            document.getElementById('tick'+i).innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
+        }
+        else{
+            document.getElementById('tick'+i).innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
+        }
+    }
+}
+
+window.comparison = function comparison(){
+    var selectedoption;
+    if(x=='english'){    
+        selectedoption = "";
+        words = new pos.Lexer().lex(str);
+        tagger = new pos.Tagger();
+        taggedWords = tagger.tag(words);
+        var j=0;
+        strarray = str.split(" ");
+        if(str.charAt(str.length-1) == "."){
+            taggedWords.pop(); //to ignore dot ( . )
+            for (i in taggedWords) {
+                    taggedWord = taggedWords[i];
+                    word = taggedWord[0];
+                    tag = taggedWord[1];
+                    if(j<strarray.length){
+                        selectedoption = document.getElementById('s'+j).value;
+                        verifyans(selectedoption,tag);
+                        j++;
+                    }
+                    
+                }
+            }
+        else{
+                for (i in taggedWords) {
+                    taggedWord = taggedWords[i];
+                    word = taggedWord[0];
+                    tag = taggedWord[1];
+                    selectedoption = document.getElementById('s'+i).value;
+                    verifyans(selectedoption,tag);
+
+                }
+            }
+    }
+    if(x == 'hindi'){
+        selectedoption = "";
+        strarray = str.split(" ");
+        if(sentence == "hindi1"){
+            selectedoption = document.getElementById('s0').value;
+            if(selectedoption == "Noun")
+                document.getElementById('tick0').innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
+            else
+                document.getElementById('tick0').innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
+            
+            selectedoption = document.getElementById('s1').value;
+            if(selectedoption == "Postposition")
+                document.getElementById('tick1').innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
+            else
+                document.getElementById('tick1').innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
+
+            selectedoption = document.getElementById('s2').value;
+            if(selectedoption == "Noun")
+                document.getElementById('tick2').innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
+            else
+                document.getElementById('tick2').innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
+
+            selectedoption = document.getElementById('s3').value;
+            if(selectedoption == "Postposition")
+                document.getElementById('tick3').innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
+            else
+                document.getElementById('tick3').innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
+
+            selectedoption = document.getElementById('s4').value;
+            if(selectedoption == "Postposition")
+                document.getElementById('tick4').innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
+            else
+                document.getElementById('tick4').innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
+
+            selectedoption = document.getElementById('s5').value;
+            if(selectedoption == "Noun")
+                document.getElementById('tick5').innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
+            else
+                document.getElementById('tick5').innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
+
+            selectedoption = document.getElementById('s6').value;
+            if(selectedoption == "Verb")
+                document.getElementById('tick6').innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
+            else
+                document.getElementById('tick6').innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
+        }
+        
+        if(sentence == "hindi2"){
+            selectedoption = document.getElementById('s0').value;
+            if(selectedoption == "Adjective")
+                document.getElementById('tick0').innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
+            else
+                document.getElementById('tick0').innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
+            
+            selectedoption = document.getElementById('s1').value;
+            if(selectedoption == "Noun")
+                document.getElementById('tick1').innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
+            else
+                document.getElementById('tick1').innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
+
+            selectedoption = document.getElementById('s2').value;
+            if(selectedoption == "Noun")
+                document.getElementById('tick2').innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
+            else
+                document.getElementById('tick2').innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
+
+            selectedoption = document.getElementById('s3').value;
+            if(selectedoption == "Adverb")
+                document.getElementById('tick3').innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
+            else
+                document.getElementById('tick3').innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
+
+            selectedoption = document.getElementById('s4').value;
+            if(selectedoption == "Verb")
+                document.getElementById('tick4').innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
+            else
+                document.getElementById('tick4').innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
+        }
+
+        if(sentence == "hindi3"){
+            selectedoption = document.getElementById('s0').value;
+            if(selectedoption == "Noun")
+                document.getElementById('tick0').innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
+            else
+                document.getElementById('tick0').innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
+            
+            selectedoption = document.getElementById('s1').value;
+            if(selectedoption == "Postposition")
+                document.getElementById('tick1').innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
+            else
+                document.getElementById('tick1').innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
+
+            selectedoption = document.getElementById('s2').value;
+            if(selectedoption == "Noun")
+                document.getElementById('tick2').innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
+            else
+                document.getElementById('tick2').innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
+
+            selectedoption = document.getElementById('s3').value;
+            if(selectedoption == "Adjective")
+                document.getElementById('tick3').innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
+            else
+                document.getElementById('tick3').innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
+
+            selectedoption = document.getElementById('s4').value;
+            if(selectedoption == "Verb")
+                document.getElementById('tick4').innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
+            else
+                document.getElementById('tick4').innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
+
+            selectedoption = document.getElementById('s5').value;
+            if(selectedoption == "Verb")
+                document.getElementById('tick5').innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
+            else
+                document.getElementById('tick5').innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
+            }
+
+            if(sentence == "hindi4"){
+            selectedoption = document.getElementById('s0').value;
+            if(selectedoption == "Interjection")
+                document.getElementById('tick0').innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
+            else
+                document.getElementById('tick0').innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
+            
+            selectedoption = document.getElementById('s1').value;
+            if(selectedoption == "Pronoun")
+                document.getElementById('tick1').innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
+            else
+                document.getElementById('tick1').innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
+
+            selectedoption = document.getElementById('s2').value;
+            if(selectedoption == "Adjective")
+                document.getElementById('tick2').innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
+            else
+                document.getElementById('tick2').innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
+
+            selectedoption = document.getElementById('s3').value;
+            if(selectedoption == "Verb")
+                document.getElementById('tick3').innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
+            else
+                document.getElementById('tick3').innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
+            }
+
+            if(sentence == "hindi5"){
+            selectedoption = document.getElementById('s0').value;
+            if(selectedoption == "Noun")
+                document.getElementById('tick0').innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
+            else
+                document.getElementById('tick0').innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
+            
+            selectedoption = document.getElementById('s1').value;
+            if(selectedoption == "Postposition")
+                document.getElementById('tick1').innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
+            else
+                document.getElementById('tick1').innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
+
+            selectedoption = document.getElementById('s2').value;
+            if(selectedoption == "Noun")
+                document.getElementById('tick2').innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
+            else
+                document.getElementById('tick2').innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
+
+            selectedoption = document.getElementById('s3').value;
+            if(selectedoption == "Verb")
+                document.getElementById('tick3').innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
+            else
+                document.getElementById('tick3').innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
+
+            selectedoption = document.getElementById('s4').value;
+            if(selectedoption == "Verb")
+                document.getElementById('tick4').innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
+            else
+                document.getElementById('tick4').innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
+           }
+    }
+}
+
+
 window.createtable = function createtable(corpusstring){
     str = "";
+    contenttable.innerHTML = "";
     str = corpusstring;
-	contenttable.innerHTML = "";
 	var rows = "";
 	var corpusS1 = "";
 	corpusS1 = corpusstring.split(" ");
@@ -298229,25 +298511,30 @@ window.createtable = function createtable(corpusstring){
 	{	
 		rows = "";
 		for(i = 0 ; i<corpusS1.length ; i++){
-		rows += "<tr><td>"+corpusS1[i]+"</td><td><select><option value = 'Noun' selected>Noun</option><option value = 'Pronoun'>Pronoun</option><option value = 'Verb'>Verb</option><option value = 'Adjective'>Adjective</option><option value = 'Adverb'>Adverb</option><option value = 'Determiner'>Determiner</option><option value = 'Preposition'>Preposition</option><option value = 'Conjunction'>Conjunction</option><option value = 'Interjection'>Interjection</option></select></td><td></td><td></td></tr>";
+		rows += "<tr><td>"+corpusS1[i]+"</td><td><select id= 's"+i+"'><option value = 'Noun' selected>Noun</option><option value = 'Pronoun'>Pronoun</option><option value = 'Verb'>Verb</option><option value = 'Adjective'>Adjective</option><option value = 'Adverb'>Adverb</option><option value = 'Determiner'>Determiner</option><option value = 'Preposition'>Preposition</option><option value = 'Conjunction'>Conjunction</option><option value = 'Interjection'>Interjection</option></select></td><td id=tick"+i+" width='60px'></td><td id=ans"+i+" width='60px'></td></tr>";
 		}
 	}
 	else if(x == 'hindi')
 	{	
 		rows = "";
 		for(i = 0 ; i<corpusS1.length ; i++){
-		rows += "<tr><td>"+corpusS1[i]+"</td><td><select><option value = 'Noun' selected>Noun</option><option value = 'Pronoun'>Pronoun</option><option value = 'Verb'>Verb</option><option value = 'Adjective'>Adjective</option><option value = 'Adverb'>Adverb</option><option value = 'Postposition'>Postposition</option><option value = 'Conjunction'>Conjunction</option><option value = 'Interjection'>Interjection</option></select></td><td></td><td></td></tr>";
+		rows += "<tr><td>"+corpusS1[i]+"</td><td><select id='s"+i+"''><option value = 'Noun' selected>Noun</option><option value = 'Pronoun'>Pronoun</option><option value = 'Verb'>Verb</option><option value = 'Adjective'>Adjective</option><option value = 'Adverb'>Adverb</option><option value = 'Postposition'>Postposition</option><option value = 'Conjunction'>Conjunction</option><option value = 'Interjection'>Interjection</option></select><td id=tick"+i+" width='60px'></td><td id=ans"+i+" width='60px'></td></tr>";
 		}
 	}
 	contenttable.innerHTML = "<center><table><tr><th>LEXICON</th><th>POS</th><th></th><th></th></tr><tr></td></tr>" + rows + "</table></center>";
-	submit.innerHTML = "<center><br><button id='submit'>Submit</button></center>";
+	submit.innerHTML = "<center><br><button id='submit'onclick='comparison()'>Submit</button></center>";
 }
 
 window.showcontent = function showcontent(id){
 	contenttable.innerHTML = "<center><br><i><font color='Blue'>Select the POS tag for corresponding words</font></i><br></center>"
-	var sentence = "";
+	sentence = "";
 	if(id == "eng"){
 		sentence = document.getElementById(id).value;
+        if(sentence == "engselect"){
+            alert("Select a sentence");
+            contenttable.innerHTML = "";
+            submit.innerHTML = "";
+        }
 		if (sentence == "english1"){
 			createtable(corpus[0][0]);
 		}
@@ -298266,13 +298553,18 @@ window.showcontent = function showcontent(id){
 	}
 	if(id == "hin"){
 		sentence = document.getElementById(id).value;
+        if(sentence == "hinselect"){
+            alert("Select a sentence");
+            contenttable.innerHTML = "";
+            submit.innerHTML = "";
+        }
 		if (sentence == "hindi1"){
 			createtable(corpus[1][0]);
 		}
 		if (sentence == "hindi2"){
 			createtable(corpus[1][1]);
 		}
-		if (sentence == "hind3"){
+		if (sentence == "hindi3"){
 			createtable(corpus[1][2]);
 		}
 		if (sentence == "hindi4"){
@@ -298291,13 +298583,13 @@ window.dropdownchange= function dropdownchange(){
 		alert('Select language');
 	}
 	if(x == 'english'){
-		contenttable.innerHTML = "";
-		submit.innerHTML = "";
+        submit.innerHTML = "";
+        contenttable.innerHTML = "";
 		langcontent.innerHTML = "<center><select id='eng' onchange = 'showcontent(this.id)'><option value='engselect'>---Select a sentence---</option><option value='english1'>"+corpus[0][0]+"</option><option value='english2'>"+corpus[0][1]+"</option><option value='english3'>"+corpus[0][2]+"</option><option value='english4'>"+corpus[0][3]+"</option><option value='english5'>"+corpus[0][4]+"</option></select></center>";
 	}
 	if(x == 'hindi'){
-		contenttable.innerHTML = "";
-		submit.innerHTML = "";
+        submit.innerHTML = "";
+        contenttable.innerHTML = "";
 		langcontent.innerHTML = "<center><select id='hin' onchange = 'showcontent(this.id)'><option value='hinselect'>---Select a sentence---</option><option value='hindi1'>"+corpus[1][0]+"</option><option value='hindi2'>"+corpus[1][1]+"</option><option value='hindi3'>"+corpus[1][2]+"</option><option value='hindi4'>"+corpus[1][3]+"</option><option value='hindi5'>"+corpus[1][4]+"</option></select></center>";
 	}
 }
@@ -298327,4 +298619,3 @@ window.furtherreadingsshow = function furtherreadingsshow(){
 	description.innerHTML = "<center><b>Hindi</b><br>-Yamuna Kachru<br><i>Chapter 6</i><br><br><b>A Student's Introduction To English Grammar</b><br>- Rodney D. Huddleston<br><i>Chapter 6</i></center>"
 }
 },{"pos":3}]},{},[6]);
-
