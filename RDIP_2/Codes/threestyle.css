@@ -148,3 +148,10 @@ body{
 #eng,#hin{
 	min-width: 150px;
 }
+
+.innermiddle .content .ans {
+	margin-left: 30px;
+}
+.innermiddle .content #getans{
+	font-size: 16px;
+}
