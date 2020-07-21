@@ -12,7 +12,6 @@ var tagger;
 var taggedWords;
 var strarray = [];
 var sentence;
-
 //-----------------POS-------------------//
 var subheading = document.getElementById('subheading');
 var description = document.getElementById('description');
@@ -20,17 +19,29 @@ var langcontent = document.getElementById('langcontent');
 var contenttable = document.getElementById('contenttable');
 var submit = document.getElementById('submitbtn');
 var getans = document.getElementById('getansbtn');
-var x,str;
-var count;
+var tabledesc = document.getElementById('tabledesc');
+var x,str,flag;
+var correctanswers = [];
+var selectedoption;
 
+var nouns = ["NN","NNP","NNPS","NNS"];
+var pronouns = ["PRP$","PRP","WP"];
+var verbs = ["VB","VBD","VBG","VBN","VBP","VBZ"];
+var adjectives = ["JJ","JJS","JJR"];
+var adverbs = ["RB","RBR","RBS","WRB"];
+var determiners = ["DT","PDT","WDT"];
+var prepositions = ["IN"];
+var conjunctions = ["CC"];
+var interjections = ["UH"];
 
 function clearfields(){
 	subheading.innerHTML = "";
-	description.innerHTML = "";
-	langcontent.innerHTML = "";
-	contenttable.innerHTML = "";
-	submit.innerHTML = "";
-	getans.innerHTML = "";
+    description.innerHTML = "";
+    langcontent.innerHTML = "";
+    contenttable.innerHTML = "";
+    submit.innerHTML = "";
+    getans.innerHTML = "";
+    tabledesc.innerHTML = "";
 }
 
 function introshow(){
@@ -52,6 +63,45 @@ function objectiveshow(){
 	description.innerHTML = "<br><hr><br>The objective of this experiment is to test the knowledge of basic part of speech of words as they appear in a sentence.<br><br><hr>"
 }
 
+function gettheanswers(){
+	if(x=='english'){
+        for(i = 0 ; i < strarray.length ; i++){
+            if(nouns.includes(correctanswers[i])){
+                document.getElementById('ans'+i).innerHTML = "Noun"
+            }
+            if(pronouns.includes(correctanswers[i])){
+                document.getElementById('ans'+i).innerHTML = "Pronoun"
+            }
+            if(verbs.includes(correctanswers[i])){
+                document.getElementById('ans'+i).innerHTML = "Verb"
+            }
+            if(adjectives.includes(correctanswers[i])){
+                document.getElementById('ans'+i).innerHTML = "Adjective"
+            }
+            if(adverbs.includes(correctanswers[i])){
+                document.getElementById('ans'+i).innerHTML = "Adverb"
+            }
+            if(determiners.includes(correctanswers[i])){
+                document.getElementById('ans'+i).innerHTML = "Determiner"
+            }
+            if(prepositions.includes(correctanswers[i])){
+                document.getElementById('ans'+i).innerHTML = "Preposition"
+            }
+            if(conjunctions.includes(correctanswers[i])){
+                document.getElementById('ans'+i).innerHTML = "Conjunction"
+            }
+            if(interjections.includes(correctanswers[i])){
+                document.getElementById('ans'+i).innerHTML = "Interjection"
+            }
+        }
+    }
+    if(x=='hindi'){
+        for(i = 0 ; i < strarray.length ; i++){
+            document.getElementById('ans'+i).innerHTML = correctanswers[i];        
+        }
+    }
+}
+
 function verifyans(selectedoption,tag){
     if(selectedoption == "Noun"){
         if(tag == "NN" || tag == "NNP" || tag == "NNPS" || tag == "NNS" ){
@@ -64,6 +114,7 @@ function verifyans(selectedoption,tag){
     }
     else if(selectedoption == "Pronoun"){
         if(tag == "PRP$" || tag == "PRP" || tag == "WP"){
+            
             document.getElementById('tick'+i).innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
             flag++;
         }
@@ -73,6 +124,7 @@ function verifyans(selectedoption,tag){
     }
     else if(selectedoption == "Verb"){        
         if(tag == "VB" || tag == "VBD" || tag == "VBG" || tag == "VBN" || tag == "VBP" || tag == "VBZ"){
+            
             document.getElementById('tick'+i).innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
             flag++;
         }
@@ -80,8 +132,10 @@ function verifyans(selectedoption,tag){
             document.getElementById('tick'+i).innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
         }
     }
+
     else if(selectedoption == "Adjective"){
         if(tag == "JJ" || tag == "JJS" || tag == "JJR"){
+            
             document.getElementById('tick'+i).innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
             flag++;
         }
@@ -91,6 +145,7 @@ function verifyans(selectedoption,tag){
     }
     else if(selectedoption == "Adverb"){
         if(tag == "RB" || tag == "RBR" || tag == "RBS" || tag == "WRB"){
+            
             document.getElementById('tick'+i).innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
             flag++;
         }
@@ -100,6 +155,7 @@ function verifyans(selectedoption,tag){
     }
     else if(selectedoption == "Determiner"){
         if(tag == "DT" || tag == "PDT" || tag == "WDT"){
+            
             document.getElementById('tick'+i).innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
             flag++;
         }
@@ -118,6 +174,7 @@ function verifyans(selectedoption,tag){
     }
     else if(selectedoption == "Conjunction"){
         if(tag == "CC"){
+            
             document.getElementById('tick'+i).innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
             flag++;
         }
@@ -127,6 +184,7 @@ function verifyans(selectedoption,tag){
     }
     else if(selectedoption == "Interjection"){
         if(tag == "UH"){
+            
             document.getElementById('tick'+i).innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
             flag++;
         }
@@ -137,8 +195,8 @@ function verifyans(selectedoption,tag){
 }
 
 function comparison(){
-    var selectedoption;
-    if(x=='english'){    
+    if(x=='english'){
+        correctanswers = [];
         flag = 0;
         selectedoption = "";
         words = new pos.Lexer().lex(str);
@@ -154,6 +212,7 @@ function comparison(){
                     tag = taggedWord[1];
                     if(j<strarray.length){
                         selectedoption = document.getElementById('s'+j).value;
+                        correctanswers.push(tag);
                         verifyans(selectedoption,tag);
                         j++;
                     }
@@ -165,18 +224,21 @@ function comparison(){
                     taggedWord = taggedWords[i];
                     word = taggedWord[0];
                     tag = taggedWord[1];
+                    correctanswers.push(tag);
                     selectedoption = document.getElementById('s'+i).value;
                     verifyans(selectedoption,tag);
-
                 }
             }  
     }
     if(x == 'hindi'){
         flag = 0;
+        correctanswers = [];
         selectedoption = "";
         strarray = str.split(" ");
         if(sentence == "hindi1"){
             flag = 0;
+            correctanswers = [];
+            correctanswers = ["Noun","Postposition","Noun","Postposition","Postposition","Noun","Verb"];
             selectedoption = document.getElementById('s0').value;
             if(selectedoption == "Noun"){
                 flag++;
@@ -243,7 +305,9 @@ function comparison(){
         
         if(sentence == "hindi2"){
             flag = 0;
+            correctanswers = [];
             selectedoption = document.getElementById('s0').value;
+            correctanswers = ["Adjective","Noun","Noun","Adverb","Verb"];
             if(selectedoption == "Adjective"){
                 flag++;
                 document.getElementById('tick0').innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
@@ -291,7 +355,9 @@ function comparison(){
 
         if(sentence == "hindi3"){
             flag = 0;
+            correctanswers = [];
             selectedoption = document.getElementById('s0').value;
+            correctanswers = ["Noun","Postposition","Noun","Adjective","Verb","Verb"];
             if(selectedoption == "Noun"){
                 flag++;
                 document.getElementById('tick0').innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
@@ -348,7 +414,9 @@ function comparison(){
 
         if(sentence == "hindi4"){
             flag = 0;
+            correctanswers = [];
             selectedoption = document.getElementById('s0').value;
+            correctanswers = ["Interjection","Pronoun","Adjective","Verb"];
             if(selectedoption == "Interjection"){
                 flag++;
                 document.getElementById('tick0').innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
@@ -387,7 +455,9 @@ function comparison(){
 
         if(sentence == "hindi5"){
             flag = 0;
+            correctanswers = [];
             selectedoption = document.getElementById('s0').value;
+            correctanswers = ["Noun","Postposition","Noun","Verb","Verb"];
             if(selectedoption == "Noun"){
                 flag++;
                 document.getElementById('tick0').innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
@@ -433,9 +503,8 @@ function comparison(){
             }
         }
     }
-
     if(flag != strarray.length){
-        getans.innerHTML = "<br><center><button id='getans'>Get Answers</button></center>"
+        getans.innerHTML = "<br><center><button id='getans' onclick='gettheanswers()'>Get Answers</button></center>"
     }
     else{
         getans.innerHTML = "";
@@ -445,6 +514,7 @@ function comparison(){
 function createtable(corpusstring){
 	str = "";
     contenttable.innerHTML = "";
+    getans.innerHTML = "";
     str = corpusstring;
 	var rows = "";
 	var corpusS1 = "";
@@ -468,7 +538,7 @@ function createtable(corpusstring){
 }
 
 function showcontent(id){
-	contenttable.innerHTML = "<center><br><i><font color='Blue'>Select the POS tag for corresponding words</font></i><br></center>"
+	tabledesc.innerHTML = "<center><br><i><font color='Blue'>Select the POS tag for corresponding words</font></i><br></center>"
 	sentence = "";
 	if(id == "eng"){
 		sentence = document.getElementById(id).value;
@@ -528,14 +598,16 @@ function dropdownchange(){
 	}
 	if(x == 'english'){
         submit.innerHTML = "";
-        contenttable.innerHTML = "";
         getans.innerHTML = "";
+        contenttable.innerHTML = "";
+        tabledesc.innerHTML = "";
 		langcontent.innerHTML = "<center><select id='eng' onchange = 'showcontent(this.id)'><option value='engselect'>---Select a sentence---</option><option value='english1'>"+corpus[0][0]+"</option><option value='english2'>"+corpus[0][1]+"</option><option value='english3'>"+corpus[0][2]+"</option><option value='english4'>"+corpus[0][3]+"</option><option value='english5'>"+corpus[0][4]+"</option></select></center>";
 	}
 	if(x == 'hindi'){
         submit.innerHTML = "";
-        contenttable.innerHTML = "";
         getans.innerHTML = "";
+        contenttable.innerHTML = "";
+        tabledesc.innerHTML = "";
 		langcontent.innerHTML = "<center><select id='hin' onchange = 'showcontent(this.id)'><option value='hinselect'>---Select a sentence---</option><option value='hindi1'>"+corpus[1][0]+"</option><option value='hindi2'>"+corpus[1][1]+"</option><option value='hindi3'>"+corpus[1][2]+"</option><option value='hindi4'>"+corpus[1][3]+"</option><option value='hindi5'>"+corpus[1][4]+"</option></select></center>";
 	}
 }
