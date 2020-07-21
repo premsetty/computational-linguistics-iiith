@@ -23,6 +23,7 @@ var tabledesc = document.getElementById('tabledesc');
 var x,str,flag;
 var correctanswers = [];
 var selectedoption;
+var f1 = 0;
 
 var nouns = ["NN","NNP","NNPS","NNS"];
 var pronouns = ["PRP$","PRP","WP"];
@@ -63,6 +64,13 @@ function objectiveshow(){
 	description.innerHTML = "<br><hr><br>The objective of this experiment is to test the knowledge of basic part of speech of words as they appear in a sentence.<br><br><hr>"
 }
 
+function toggleans(){
+    getans.innerHTML = "<br><center><button id='getans' onclick='gettheanswers()'>Get Answers</button></center>"
+    for(i = 0 ; i < strarray.length ; i++){
+        document.getElementById('ans'+i).innerHTML = "";
+    }
+}
+
 function gettheanswers(){
 	if(x=='english'){
         for(i = 0 ; i < strarray.length ; i++){
@@ -100,6 +108,7 @@ function gettheanswers(){
             document.getElementById('ans'+i).innerHTML = correctanswers[i];        
         }
     }
+    getans.innerHTML = "<br><center><button id='getans' onclick='toggleans()'>Hide Answers</button></center>";
 }
 
 function verifyans(selectedoption,tag){
@@ -504,10 +513,12 @@ function comparison(){
         }
     }
     if(flag != strarray.length){
+    	f1++;
         getans.innerHTML = "<br><center><button id='getans' onclick='gettheanswers()'>Get Answers</button></center>"
     }
     else{
-        getans.innerHTML = "";
+    	if(f1 == 0)
+        	getans.innerHTML = "";
     } 
 }
 
