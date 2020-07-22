@@ -1,7 +1,8 @@
 //----------------Corpus-----------------//
 
 var corpus = [["The child liked the chocolate.","She was stopped by the bravest knight.","Mary baked a cake for his birthday","She decorated the cake carefully","Mary wore a dress with polka dots."],
-			  ["राम ने सीता के लिए फल तोड़ा।","छोटे बच्चे पाठशाला जल्दी आयेंगे।","मेहनत का फल मीठा होता है।","वाह! वह खूबसूरत है।","पेड़ से पत्ते गिर गए।"]];
+              ["राम ने सीता के लिए फल तोड़ा।","छोटे बच्चे पाठशाला जल्दी आयेंगे।","मेहनत का फल मीठा होता है।","वाह! वह खूबसूरत है।","पेड़ से पत्ते गिर गए।"]];
+
 //----------------Corpus-----------------//
 
 //-----------------POS-------------------//
@@ -12,6 +13,7 @@ var tagger;
 var taggedWords;
 var strarray = [];
 var sentence;
+
 //-----------------POS-------------------//
 var subheading = document.getElementById('subheading');
 var description = document.getElementById('description');
@@ -35,6 +37,8 @@ var prepositions = ["IN"];
 var conjunctions = ["CC"];
 var interjections = ["UH"];
 
+//--------------- My Functions ---------------//
+
 function clearfields(){
 	subheading.innerHTML = "";
     description.innerHTML = "";
@@ -44,7 +48,6 @@ function clearfields(){
     getans.innerHTML = "";
     tabledesc.innerHTML = "";
 }
-
 function introshow(){
 	description.style.fontSize = "15px";
 	subheading.innerHTML = "Introduction";
@@ -63,14 +66,12 @@ function objectiveshow(){
 	document.getElementById('image1').style.display = "none";
 	description.innerHTML = "<br><hr><br>The objective of this experiment is to test the knowledge of basic part of speech of words as they appear in a sentence.<br><br><hr>"
 }
-
 function toggleans(){
     getans.innerHTML = "<br><center><button id='getans' onclick='gettheanswers()'>Get Answers</button></center>"
     for(i = 0 ; i < strarray.length ; i++){
         document.getElementById('ans'+i).innerHTML = "";
     }
 }
-
 function gettheanswers(){
 	if(x=='english'){
         for(i = 0 ; i < strarray.length ; i++){
@@ -110,7 +111,6 @@ function gettheanswers(){
     }
     getans.innerHTML = "<br><center><button id='getans' onclick='toggleans()'>Hide Answers</button></center>";
 }
-
 function verifyans(selectedoption,tag){
     if(selectedoption == "Noun"){
         if(tag == "NN" || tag == "NNP" || tag == "NNPS" || tag == "NNS" ){
@@ -122,8 +122,7 @@ function verifyans(selectedoption,tag){
         }
     }
     else if(selectedoption == "Pronoun"){
-        if(tag == "PRP$" || tag == "PRP" || tag == "WP"){
-            
+        if(tag == "PRP$" || tag == "PRP" || tag == "WP"){            
             document.getElementById('tick'+i).innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
             flag++;
         }
@@ -131,9 +130,8 @@ function verifyans(selectedoption,tag){
             document.getElementById('tick'+i).innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
         }
     }
-    else if(selectedoption == "Verb"){        
+    else if(selectedoption == "Verb"){
         if(tag == "VB" || tag == "VBD" || tag == "VBG" || tag == "VBN" || tag == "VBP" || tag == "VBZ"){
-            
             document.getElementById('tick'+i).innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
             flag++;
         }
@@ -144,7 +142,6 @@ function verifyans(selectedoption,tag){
 
     else if(selectedoption == "Adjective"){
         if(tag == "JJ" || tag == "JJS" || tag == "JJR"){
-            
             document.getElementById('tick'+i).innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
             flag++;
         }
@@ -154,7 +151,6 @@ function verifyans(selectedoption,tag){
     }
     else if(selectedoption == "Adverb"){
         if(tag == "RB" || tag == "RBR" || tag == "RBS" || tag == "WRB"){
-            
             document.getElementById('tick'+i).innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
             flag++;
         }
@@ -164,7 +160,6 @@ function verifyans(selectedoption,tag){
     }
     else if(selectedoption == "Determiner"){
         if(tag == "DT" || tag == "PDT" || tag == "WDT"){
-            
             document.getElementById('tick'+i).innerHTML = "<img class='ans' src='../../src/lab/exp7/right.png' alt='Correct' width='30px' height='30px'>";
             flag++;
         }
@@ -202,7 +197,6 @@ function verifyans(selectedoption,tag){
         }
     }
 }
-
 function comparison(){
     if(x=='english'){
         correctanswers = [];
@@ -311,7 +305,6 @@ function comparison(){
                 document.getElementById('tick6').innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
             }
         }
-        
         if(sentence == "hindi2"){
             flag = 0;
             correctanswers = [];
@@ -361,7 +354,6 @@ function comparison(){
                 document.getElementById('tick4').innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
             }
         }
-
         if(sentence == "hindi3"){
             flag = 0;
             correctanswers = [];
@@ -420,7 +412,6 @@ function comparison(){
                 document.getElementById('tick5').innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
             }
         }
-
         if(sentence == "hindi4"){
             flag = 0;
             correctanswers = [];
@@ -461,7 +452,6 @@ function comparison(){
                 document.getElementById('tick3').innerHTML = "<img class='ans' src='../../src/lab/exp7/wrong.png' alt='Wrong' width='30px' height='30px'>";
             }
         }
-
         if(sentence == "hindi5"){
             flag = 0;
             correctanswers = [];
@@ -513,15 +503,14 @@ function comparison(){
         }
     }
     if(flag != strarray.length){
-    	f1++;
+        f1++;
         getans.innerHTML = "<br><center><button id='getans' onclick='gettheanswers()'>Get Answers</button></center>"
     }
     else{
-    	if(f1 == 0)
-        	getans.innerHTML = "";
+        if(f1 == 0)
+            getans.innerHTML = "";
     } 
 }
-
 function createtable(corpusstring){
 	str = "";
     contenttable.innerHTML = "";
@@ -547,7 +536,6 @@ function createtable(corpusstring){
 	contenttable.innerHTML = "<center><table><tr><th>LEXICON</th><th>POS</th><th></th><th></th></tr><tr></td></tr>" + rows + "</table></center>";
 	submit.innerHTML = "<center><br><button id='submit'onclick='comparison()'>Submit</button></center>";
 }
-
 function showcontent(id){
 	tabledesc.innerHTML = "<center><br><i><font color='Blue'>Select the POS tag for corresponding words</font></i><br></center>"
 	sentence = "";
@@ -600,7 +588,6 @@ function showcontent(id){
 		}
 	}
 }
-
 function dropdownchange(){
 	x = "";
 	x = document.getElementById('lang').value;
@@ -622,13 +609,11 @@ function dropdownchange(){
 		langcontent.innerHTML = "<center><select id='hin' onchange = 'showcontent(this.id)'><option value='hinselect'>---Select a sentence---</option><option value='hindi1'>"+corpus[1][0]+"</option><option value='hindi2'>"+corpus[1][1]+"</option><option value='hindi3'>"+corpus[1][2]+"</option><option value='hindi4'>"+corpus[1][3]+"</option><option value='hindi5'>"+corpus[1][4]+"</option></select></center>";
 	}
 }
-
 function experimentshow(){
 	subheading.innerHTML = "Experiment";
 	document.getElementById('image1').style.display = "none";
 	description.innerHTML = "<center><select id='lang' onchange = 'dropdownchange()'><option value='select'>---Select Language---</option><option value='english'>English</option><option value='hindi'>Hindi</option></select></center>";
 }
-
 function quizzesshow(){
 	description.style.fontSize = "16px";
 	subheading.innerHTML = "Quizzes";
@@ -638,9 +623,8 @@ function quizzesshow(){
 function procedureshow(){
 	subheading.innerHTML = "Procedure";
 	document.getElementById('image1').style.display = "none";
-	description.innerHTML = "<b><u>STEP1 :</u></b> Select a language from the drop down menu.<br><b><u>STEP2 :</u></b> Select a sentence from the drop down menu.<br><b><u>STEP3 :</u></b> Select corresponding POS for each word in the sentence and and click the <button>Submit</button> button<br><b><u>OUTPUT :</u></b> The submitted answer will be checked.<br><b><u>STEP4 :</u></b> If incorrect, click on <button>Get Answer</button> button for the correct answer or repeat STEP3.<br><br><br><hr>"
+	description.innerHTML = "<b><u>STEP1 :</u></b> Select a language from the drop down menu.<br><b><u>STEP2 :</u></b> Select a sentence from the drop down menu.<br><b><u>STEP3 :</u></b> Select corresponding POS for each word in the sentence and and click the <button>Submit</button> button<br><b><u>OUTPUT1 :</u></b> The submitted answer will be checked.<br><b><u>STEP4 :</u></b> If incorrect, click on <button>Get Answer</button> button for the correct answer or repeat STEP3.<br><br><br><hr>"
 }
-
 function furtherreadingsshow(){
 	description.style.fontSize = "16px";
 	subheading.innerHTML = "Further Reading";

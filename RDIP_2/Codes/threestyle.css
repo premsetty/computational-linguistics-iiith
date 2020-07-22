@@ -23,8 +23,8 @@ body{
 }
 .head a:hover{
 	background-color: #145a9c;
-	padding-top: 7px;
-	padding-left: 10px;
+	padding-top: 5px;
+	padding-left: 23px;
 	padding-bottom: 5px;
 	padding-right: 23px;
 }
@@ -91,15 +91,18 @@ body{
 	border: none;
 	font-size: 16px;
 	color: #0e639c;
+	height: 105px;
 	background-color: white;
 }
 .innermiddle .mainbtns:hover{
 	color: white;
 	background-color: #0e639c;
+	height: 105px;
 }
 .innermiddle .mainbtns:focus{
 	color: white;
 	background-color: #0e639c;
+	height: 105px;
 }
 .innermiddle .content {
 	margin:0px 20px;
